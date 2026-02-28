@@ -145,4 +145,12 @@ export function removeCheckListItem (todoId, itemId) {
         }
     }
     return false;
+} 
+
+export function saveState() {
+    try {
+        localStorage.setItem('todoAppState', JSON.stringify(state));
+    } catch(e) {
+        console.warn('Could not save state:', e);
+    }
 }
