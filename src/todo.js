@@ -120,20 +120,52 @@ export function updateTodo (todoId, updates) {
     return null;
 }
 
-export function toggleTodoComplete(todoId, itemId) {
+export function toggleTodoComplete(todoId) {
     for (const p of state.projects) {
         const todo = p.todos.find(t=> t.id === todoId);
+        if (todo) {
+            const item = todo.checklist.find(c => c.id === todoId);
+            if (todo) {
+                todo.done = !todo.done;
+                saveState();
+                return todo;
+            }   
+        }
+    }
+    return null;
+}
+
+export function toggleCheckListItem (todoId, itemId) {
+    for (const p of state.projects) {
+        const todo = p.todos.find(t => t.id === todoId);
         if (todo) {
             const item = todo.checklist.find(c => c.id === itemId);
             if (item) {
                 item.done = !item.done;
                 saveState();
                 return item;
-            }   
+            }
         }
     }
     return null;
 }
+
+export function addChecklistItem(todoId, text) {
+ for (const p of state.projects) {
+    const todo = p.todos.find(t => t.id === todoId);
+    if (todo) {
+     const item = createChecklistItem(text);
+     todo.checklist.push(item);
+     saveState();
+      return item;
+   }
+  }
+  return null;
+}
+
+
+
+
 
 export function removeCheckListItem (todoId, itemId) {
     for (const p of state.projects) {
