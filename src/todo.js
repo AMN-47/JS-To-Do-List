@@ -154,3 +154,23 @@ export function saveState() {
         console.warn('Could not save state:', e);
     }
 }
+
+export function loadState() {
+    try {
+        const saved = localStorage.getItem('todoAppState');
+        if (!saved) return;
+        const parsed = JSON.parse(saved);
+        state.projects = parsed.projects || state.projects;
+        state.activeProjectId = parsed.activeProjectId || DEFAULT_PROJECT_ID;
+
+        const allIds = state.projects.flatMap (p => 
+        [p.id, ...p.todos.flatMap(t => [t.id, ...t.checklist.map(c => c.id)])]
+        );
+        const maxNum = allIds
+            .map(id => parseInt(id.replace('id_', '')) || 0)
+            .reduce((a, b) => Math.max(a,b), 0);
+        _idCounter = maxNum + 1;
+    } catch (e) {
+        console.warn('Could not load state', e);
+    }
+}
