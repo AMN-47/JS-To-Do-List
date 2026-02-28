@@ -1,11 +1,135 @@
+import { instancePerContainerCachingFactory } from "tsyringe";
+
 //todo list logic
 let _idCounter = 1;
 const genId = () => `id_${_idCounter++}`;
 
 export function createTodo({
     title,
-    description = '';
-    
-    dueDate = 'medium';
-    
-}) {}
+    description = '',
+    dueDate = '',
+    priority = 'medium',
+    notes = '',
+    checklist = [],
+    projectId,    
+}) {
+    return {
+        id: genId(),
+        title,
+        description,
+        dueDate,
+        priority,
+        notes,
+        checklist,
+        projectId,
+        complete: false,
+        createdAt: new Date().toISOString(),
+    };
+} 
+
+export function createCheckListItem(text) {
+    return {id: genId(), text, done:false};
+}
+
+export function createProject({name, id = null}) {
+    return {
+        id: id || genId(),
+        name, 
+        todos: [],
+    }
+} 
+
+
+const DEFAULT_PROJECT_ID = 'default';
+
+const state = {
+    projects: [createProject({name: 'My Tasks ', id: DEFAULT_PROJECT_ID})],
+    activeProjectId: DEFAULT_PROJECT_ID,
+};
+
+export function getProjects() {
+    return state.projects;
+}
+
+export function getActiveProjectId() {
+    return state.activeProjectId;
+}
+
+export function setActiveProject(projectId) {
+    state.activeProjectId = projectId;
+}
+
+export function addProject(name) {
+    const p = createProject({ name });
+    state.projects.push(p);
+    saveState();
+    return p;
+}
+
+export function deleteProject(projectId) {
+    if (projectID === DEFAULT_PROJECT_ID) return false;
+    state.projects = state.projects.filter(p => p.id !== projectId);
+    if (state.activeProjectId === projectId) {
+        state.activeProjectId = DEFAULT_PROJECT_ID;
+    }
+    saveState();
+    return true;
+}
+
+export function getProject(projectId) {
+    return state.projects.find(p => p.id === projectId) || null;
+}
+
+//Todo Operations
+export function getTodosForProject(projectId) {
+    const p = getProject(projectId);
+    return p ? p.todos: [];
+}
+
+export function addTodo(todoData) {
+    const todo = createTodo({ ...todoData, projectId: state.activeProjectId});
+    const project = getProject(state.activeProjectId);
+    if (project) {
+        project.todos.push(todo);
+        saveState();
+    }
+    return todo;
+}
+
+export function deleteTodo(todoId) {
+    for (const p of state.projects) {
+        const idx = p.todos.findIndex(t => t.id === todoId);
+        if (idx !== -1) {
+            p.todos.splice(idx, 1);
+            saveState();
+            return true;
+        }
+    }
+    return false;
+}
+
+export function updateTodo (todoId, updates) {
+    for (const p of state.projects) {
+        const todo = p.todos.find(t => t.id === todoId);
+        if (todo) {
+            Object.assign(todo, updates);
+            saveState();
+            return todo;
+        }
+    }
+    return null;
+}
+
+export function toggleTodoComplete(todoId, itemId) {
+    for (const p of state.projects) {
+        const todo = p.todos.find(t=> t.id === todoId);
+        if (todo) {
+            const item = todo.checklist.find(c => c.id === itemId);
+            if (item) {
+                item.done = !item.done;
+                saveState();
+                return item;
+            }   
+        }
+    }
+}
