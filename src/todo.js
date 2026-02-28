@@ -132,4 +132,17 @@ export function toggleTodoComplete(todoId, itemId) {
             }   
         }
     }
+    return null;
+}
+
+export function removeCheckListItem (todoId, itemId) {
+    for (const p of state.projects) {
+        const todo = p.todos.find(t => t.id === todoId);
+        if (todo) {
+            todo.checklist = todo.checklist.filter(c => c.id !== itemId);
+            saveState();
+            return true;
+        }
+    }
+    return false;
 }
