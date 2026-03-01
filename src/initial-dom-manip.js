@@ -10,5 +10,6 @@ import {
     deleteProject,
     deleteTodo,
     toggleTodoComplete,
-    toggleCheckListItem
+    toggleCheckListItem,
 } from './todo'
+
