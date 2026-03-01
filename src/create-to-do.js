@@ -11,6 +11,8 @@ import {
     toggleTodoComplete,
     toggleCheckListItem,
     addChecklistItem,
+    createCheckListItem,
+    removeCheckListItem,
 } from './todo-logic';
 
 let onSaveCallBack = null;
@@ -90,6 +92,28 @@ function buildModal (todo = null) {
         if (!text) return;
         if (isEdit) {
             const item = addChecklistItem(todo.id, text);
+            checklistList.insertAdjacentHTML('beforeend', checklistItemHTML(item));
+        } else {
+            const item = createCheckListItem(text);
+            checklistList.insertAdjacentHTML('beforeend', checklistHTML(item, true));
         }
+        checklistInput.value = '';
+        checklistInput.focus();
     }
+
+    checklistAddBtn.addEventListener('click', addTempItem);
+    checklistInput.addEventListener('keydown', e => {if (e.key === 'Enter') {e.preventDefault(); addTempItem(); } });
+
+    checklistList.addEventListener('click', e => {
+        if (removeBtn) {
+            const li = removeBtn.closest('li');
+            const itemId = li.dataset.id;
+            if (isEdit && itemId) removeCheckListItem(todo.id, itemId);
+            li.remove();
+        }
+    });
+
+
+    //close window
+    
 }
