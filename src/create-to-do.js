@@ -117,4 +117,5 @@ function buildModal (todo = null) {
     //close window
     overlay.querySelector('.modal-close').addEventListener('click', () => closeModal(overlay));
     overlay.querySelector('.modal-cancel').addEventListener('click', () => closeModal(overlay));
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay); });
 }
