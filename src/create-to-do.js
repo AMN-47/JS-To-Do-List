@@ -13,6 +13,7 @@ import {
     addChecklistItem,
     createCheckListItem,
     removeCheckListItem,
+    updateTodo,
 } from './todo-logic';
 
 let onSaveCallBack = null;
@@ -117,5 +118,36 @@ function buildModal (todo = null) {
     //close window
     overlay.querySelector('.modal-close').addEventListener('click', () => closeModal(overlay));
     overlay.querySelector('.modal-cancel').addEventListener('click', () => closeModal(overlay));
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay); });
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay); }); 
+
+    //save
+    overlay.querySelector('.modal-save').addEventListener('click', () => {
+      const title = overlay.querySelector('#m-title').value.trim();
+      if (!title) {
+        overlay.querySelector('#m-title').classList.add('error');
+        return;
+      }
+      const desc = overlay.querySelector('#m-desc').value.trim();
+      const dueDate = overlay.querySelector('#m-due').value;
+      const priority = overlay.querySelector('#m-priority').value;
+      const notes = overlay.querySelector('#m-notes').value.trim();
+      const projectId = overlay.querySelector('#m-project').value;
+
+      const tempItems = [...checklistList.querySelectorAll('li[data-temp]')].map(li => ({
+        id: li.dataset.id,
+        text: li.querySelector('.checklist-text').textContent,
+        done: false,
+      })); 
+      
+      if (isEdit) {
+        updateTodo(todo.id, {title, description: desc, dueDate, priority, notes, projectId });
+      } else {
+        addTodo({title, description: desc, dueDate, priority, notes, checklist: tempItems, projectId});
+      }
+
+      closeModal(overlay);
+      if (onSaveCallBack) onSaveCallBack();
+    }); 
+
+    return overlay;
 }
