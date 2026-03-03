@@ -150,4 +150,11 @@ function buildModal (todo = null) {
     }); 
 
     return overlay;
+} 
+
+function checklistItemHTML(item, temp = false) {
+  return `<li data-id="${item.id}" ${temp ? 'data-temp="1"' : ''} class="checklist-builder-item">
+    <span class="checklist-text">${escHtml(item.text)}</span>
+    <button type="button" class="checklist-remove" aria-label="Remove">&times;</button>
+  </li>`;
 }
