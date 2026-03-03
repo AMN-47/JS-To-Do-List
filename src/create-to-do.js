@@ -157,4 +157,32 @@ function checklistItemHTML(item, temp = false) {
     <span class="checklist-text">${escHtml(item.text)}</span>
     <button type="button" class="checklist-remove" aria-label="Remove">&times;</button>
   </li>`;
+} 
+
+function closeModal(overlay) {
+  overlay.classList.add('modal-exit');
+  setTimeout(() => overlay.remove(), 250);
+}
+
+function escHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+} 
+
+export function openCreateTodoModal(onSave) {
+  onSaveCallBack = onSave;
+  const modal = buildModal();
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add('active'));
+  modal.querySelector('#m-title').focus();
+} 
+
+export function openEditTodoModal(todo, onSave) {
+  onSaveCallBack = onSave;
+  const modal = buildModal(todo);
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add('active'));
 }
