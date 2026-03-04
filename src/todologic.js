@@ -35,4 +35,18 @@ function addProject(name) {
     const project = createProject(name);
     appState.projects.push(project);
     saveToLocalStorage();
+} 
+
+//function to delete project by its position in the array
+function deleteProject(index) {
+    appState.projects.splice(index, 1);
+
+    if (appState.activeIndex === index) {
+        appState.activeIndex = -1;
+    } else if (appState,activeIndex > index) {
+        appState.activeIndex--;
+    }
+
+    saveToLocalStorage();
 }
+
