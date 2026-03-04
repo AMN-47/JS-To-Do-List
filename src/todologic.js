@@ -72,5 +72,23 @@ function editTodo(todoIndex, title, description, dueDate, priority, notes) {
     todo.notes = notes;
 
     saveToLocalStorage();
+} 
+
+function deleteTodo(todoIndex) {
+    const project = getActiveProject();
+    if (!project) return;
+
+    project.todos.splice(todoIndex, 1);
+    saveToLocalStorage();
 }
+
+function toggleTodoComplete(todoIndex) {
+    const project = getActiveProject();
+    if (!project) return;
+
+    project.todos[todoIndex].completed = !project.todos[todoIndex].completed;
+    saveToLocalStorage();
+}
+
+
 
