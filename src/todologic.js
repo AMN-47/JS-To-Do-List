@@ -118,4 +118,18 @@ function loadFromLocalStorage() {
     }
 }
 
+//SEED default data populates the demo project for first time users only if local storage is empty
 
+function seedDefualtData () {
+    addProject("Personal");
+    appState.activeIndex = 0;
+
+    addTodo(
+        "Read the Odin Project Lesson",
+        "Work Through the Todo List Project Page",
+        getTodayDateString(),
+        "high",
+        "Focus on factory fucntions and Dom Seperation"
+    );
+    
+}
