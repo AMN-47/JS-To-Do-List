@@ -131,5 +131,36 @@ function seedDefualtData () {
         "high",
         "Focus on factory fucntions and Dom Seperation"
     );
-    
+    addTodo (
+        "Go for a walk",
+        "Fresh air helps after coding sessions",
+        "",
+        "low",
+        ""
+    );
+} 
+
+function getTodayDateString() {
+    return new Date().toISOString().split("T")[0];
+}
+
+//Export function makes names of functions to any other file that needs it
+export{
+    appState,
+
+    getActiveProject,
+
+    addProject,
+    deleteProject,
+
+    addTodo,
+    editTodo,
+    deleteTodo,
+    toggleTodoComplete,
+
+    saveToLocalStorage,
+    loadFromLocalStorage,
+
+    seedDefualtData,
+    getTodayDateString,
 }
