@@ -90,5 +90,32 @@ function toggleTodoComplete(todoIndex) {
     saveToLocalStorage();
 }
 
+const STORAGE_KEY = "odin-todo-app-v1";
+
+//function savetoLocal Storage writes each state to local storage
+
+function saveToLocalStorage() {
+    const data = JSON.stringify({
+        projects: appState.projects,
+        activeIndex: appState.activeIndex, 
+    });
+    localStorage.setItem(STORAGE_KEY, data);
+}
+
+//reads saved stroage data
+function loadFromLocalStorage() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+
+    try {
+        const data = JSON.parse(raw);
+        appState.projects = data.projects || [];
+        appState.activeIndex = (data.activeIndex !== undefined) ? data.activeIndex: -1
+        return true;
+    } catch (err) {
+        console.warn("Could not save data:", err);
+        return false;
+    }
+}
 
 
