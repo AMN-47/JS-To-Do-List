@@ -50,3 +50,27 @@ function deleteProject(index) {
     saveToLocalStorage();
 }
 
+//functions for todo operations
+function addTodo (title, description, dueDate, priority, notes) {
+    const project = getActiveProject();
+    if (!project) return; //do nothing if no project selected
+
+    const todo = createTodo(title, description, dueDate, priority, notes);
+    project.todos.push(todo);
+    saveToLocalStorage();
+}
+
+function editTodo(todoIndex, title, description, dueDate, priority, notes) {
+    const project = getActiveProject();
+    if (!project) return;
+
+    const todo = project.todos[todoIndex];
+    todo.title = title;
+    todo.description = description;
+    todo.dueDate = dueDate;
+    todo.priority = priority;
+    todo.notes = notes;
+
+    saveToLocalStorage();
+}
+
