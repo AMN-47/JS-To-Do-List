@@ -23,4 +23,16 @@ function createProject(name) {
 const appState = {
     projects: [], //Lists the project the user created
     activeIndex: -1, //current project selected with -1 meaning no project selected
-};
+}; 
+
+//function to get active project
+function getActiveProject() {
+    if (appState.activeIndex === -1) return null;
+    return appState.projects[appState.activeIndex];
+}
+//function to create Project and add it to list
+function addProject(name) {
+    const project = createProject(name);
+    appState.projects.push(project);
+    saveToLocalStorage();
+}
