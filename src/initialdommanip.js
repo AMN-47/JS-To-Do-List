@@ -36,3 +36,17 @@ function buildLayout() {
     return {sidebar, main};
 }
 
+/*Build Side bar:
+    -Populates side bar panel with heading, ul for project buttons, new project button, inline form for project name*/
+function buildSideBar(sidebar) {
+    //App Titile
+    const title = document.createElement("div");
+    title.id = "sidebar-header";
+
+    const h1 = document.createElement("h1");
+    h1.id = "app-title";
+    h1.textContent = "+ TASKS";
+    title.appendChild(h1);
+    sidebar.appendChild(title);
+}
+
