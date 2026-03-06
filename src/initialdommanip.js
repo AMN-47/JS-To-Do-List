@@ -115,5 +115,20 @@ function buildMain(main) {
     header.appendChild(addTodoBtn);
     main.appendChild(header);
 
-    
+    //todolist
+    const todoListEl = document.createElement("div");
+    todoListEl.id = "todo-list";
+    main.appendChild(todoListEl); 
+
+    //Empty state message
+    const emptyState = document.createElement("div");
+    emptyState.id = "empty-state";
+    emptyState.classList.add("hidden");
+
+    const emptyMsg = document.createElement("p");
+    emptyMsg.textContent = "no tasks yet - add one above!";
+    emptyState.appendChild(emptyMsg);
+    main.appendChild(emptyState);
+
+    return {projectTitle, addTodoBtn, todoListEl, emptyState};
 }
