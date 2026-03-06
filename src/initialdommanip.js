@@ -95,3 +95,25 @@ function buildSideBar(sidebar) {
 
 }
 
+//Main element for parts 
+function buildMain(main) {
+
+    //Header: project + add Todo
+    const header = document.createElement("div");
+    header.id = "content-header";
+
+    const projectTitle = document.createElement("h2");
+    projectTitle.id = "project-title";
+    projectTitle.textContent = "Select a project";
+
+    const addTodoBtn = document.createElement("button");
+    addTodoBtn.id = "add-todo-btn";
+    addTodoBtn.textContent = "+ Add Todo";
+    addTodoBtn.classList.add("hidden"); //hidden until a project is selected
+
+    header.appendChild(projectTitle);
+    header.appendChild(addTodoBtn);
+    main.appendChild(header);
+
+    
+}
