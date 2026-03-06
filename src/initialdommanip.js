@@ -131,4 +131,23 @@ function buildMain(main) {
     main.appendChild(emptyState);
 
     return {projectTitle, addTodoBtn, todoListEl, emptyState};
+} 
+
+function buildModal() {
+    //overlay - Dark Backdrop
+
+    const overlay = document.createElement("div");
+    overlay.id = "modal-overlay";
+    overlay.classList.add("hidden");
+
+
+    //Modal Box
+    const modal = document.createElement("div");
+    modal.id = "modal";
+
+    //Title of Modal such as Add todo or Edit Todo
+    const modalTitle = document.createElement("h3");
+    modalTitle.id = "modal-title";
+    modalTitle.textContent = "New Todo";
+    modal.appendChild(modalTitle);
 }
