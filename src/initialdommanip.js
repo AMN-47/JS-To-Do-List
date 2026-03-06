@@ -49,10 +49,26 @@ function buildSideBar(sidebar) {
     title.appendChild(h1);
     sidebar.appendChild(title);
 
+    //project list ul
+    const projectList = document.createElement("ul");
+    projectList.id = "project-list";
+    sidebar.appendChild(projectList);
+
     //New Project Button
     const addProjectBtn = document.createElement("button");
     addProjectBtn.id = "add-project-btn";
     addProjectBtn.textContent = "+ New Project";
-    sidebar.appendChild(addProjectBtn);
+    sidebar.appendChild(addProjectBtn); 
+
+    //inline new-project form (hidden by defualt)
+    const newProjectForm = document.createElement("div");
+    newProjectForm.id = "new-project-form";
+    newProjectForm,classList.add("hidden"); //Starts invisible
+
+    const newProjectInput = document.createElement("input");
+    newProjectInput.type = "text";
+    newProjectInput.id = "new-project-input";
+    newProjectInput.placeholder = "Project name...";
+    newProjectInput.maxLength = 30;
 }
 
