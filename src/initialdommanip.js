@@ -69,6 +69,29 @@ function buildSideBar(sidebar) {
     newProjectInput.type = "text";
     newProjectInput.id = "new-project-input";
     newProjectInput.placeholder = "Project name...";
-    newProjectInput.maxLength = 30;
+    newProjectInput.maxLength = 30; 
+
+    //Action buttons row inside the form
+    const formActions = document.createElement("div");
+    formActions.classList.add("form-actions");
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.id = "confirm-project-btn";
+    confirmBtn.textContent = "Add";
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.id = "cancel-project-btn";
+    cancelBtn.classList.add("btn-ghost");
+    cancelBtn.textContent = "Cancel";
+
+    formActions.appendChild(confirmBtn);
+    formActions.appendChild(cancelBtn);
+
+    newProjectForm.appendChild(newProjectInput);
+    newProjectForm.appendChild(formActions);
+    sidebar.appendChild(newProjectForm);
+
+    return {projectList, addProjectBtn, newProjectForm, newProjectForm, confirmBtn, cancelBtn};
+
 }
 
