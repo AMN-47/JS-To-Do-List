@@ -48,5 +48,11 @@ function buildSideBar(sidebar) {
     h1.textContent = "+ TASKS";
     title.appendChild(h1);
     sidebar.appendChild(title);
+
+    //New Project Button
+    const addProjectBtn = document.createElement("button");
+    addProjectBtn.id = "add-project-btn";
+    addProjectBtn.textContent = "+ New Project";
+    sidebar.appendChild(addProjectBtn);
 }
 
