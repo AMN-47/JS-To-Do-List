@@ -150,4 +150,23 @@ function buildModal() {
     modalTitle.id = "modal-title";
     modalTitle.textContent = "New Todo";
     modal.appendChild(modalTitle);
+} 
+
+//Helper: creates label warapping input and text area
+function makeField(labelText, required, inputEl) {
+    const label = document.createElement("label");
+
+    const span = document.createElement("span");
+    span.textContent = labelText + " ";
+    label.appendChild(span);
+
+    if (required) {
+        const req = document.createElement("span");
+        req.classList.add("required");
+        req.textContent = "*";
+        span.appendChild(req);
+    }
+
+    label.appendChild(inputEl);
+    return label;
 }
