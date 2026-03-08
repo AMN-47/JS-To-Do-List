@@ -218,3 +218,13 @@ notesInput.id = "todo-notes-input";
 notesInput.placeholder = "Any Extra Notes ...";
 notesInput.rows = 2;
 modal.appendChild(makeField("Notes", false, notesInput));
+
+//Hidden Field: Stores index when editing
+//-1 means adding something new while each other number means we are editing. 
+
+const editIndexInput = document.createElement("input");
+editIndexInput.type = "hidden";
+editIndexInput.id = "edit-todo-index";
+editIndexInput.value = "-1";
+modal.appendChild(editIndexInput);
+
