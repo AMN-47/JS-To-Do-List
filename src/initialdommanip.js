@@ -134,26 +134,25 @@ function buildMain(main) {
 } 
 
 function buildModal() {
-    //overlay - Dark Backdrop
 
-    const overlay = document.createElement("div");
-    overlay.id = "modal-overlay";
-    overlay.classList.add("hidden");
+  // ----- Overlay (dark backdrop) -----
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  overlay.classList.add("hidden");
 
+  // ----- Modal box -----
+  const modal = document.createElement("div");
+  modal.id = "modal";
 
-    //Modal Box
-    const modal = document.createElement("div");
-    modal.id = "modal";
+  // Title of the modal ("New Todo" or "Edit Todo")
+  const modalTitle = document.createElement("h3");
+  modalTitle.id = "modal-title";
+  modalTitle.textContent = "New Todo";
+  modal.appendChild(modalTitle);
 
-    //Title of Modal such as Add todo or Edit Todo
-    const modalTitle = document.createElement("h3");
-    modalTitle.id = "modal-title";
-    modalTitle.textContent = "New Todo";
-    modal.appendChild(modalTitle);
-} 
-
-//Helper: creates label warapping input and text area
-function makeField(labelText, required, inputEl) {
+  // Helper: creates a <label> wrapping an <input> or <textarea>/<select>
+  // This keeps the code DRY ("Don't Repeat Yourself")
+  function makeField(labelText, required, inputEl) {
     const label = document.createElement("label");
 
     const span = document.createElement("span");
@@ -161,86 +160,98 @@ function makeField(labelText, required, inputEl) {
     label.appendChild(span);
 
     if (required) {
-        const req = document.createElement("span");
-        req.classList.add("required");
-        req.textContent = "*";
-        span.appendChild(req);
+      const req = document.createElement("span");
+      req.classList.add("required");
+      req.textContent = "*";
+      span.appendChild(req);
     }
 
     label.appendChild(inputEl);
     return label;
-} 
+  }
 
-//Title Field 
-const titleInput = document.createElement("input");
-titleInput.type = "text";
-titleInput.id = "todo-title-input";
-titleInput.placeholder = "What needs doing?";
-titleInput.maxLength = 60;
-modal.appendChild(makeField("Title", true, titleInput));
+  // ----- Title field -----
+  const titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.id = "todo-title-input";
+  titleInput.placeholder = "What needs doing?";
+  titleInput.maxLength = 60;
+  modal.appendChild(makeField("Title", true, titleInput));
 
-//Description Field
-const descInput = document.createElement("textarea");
-descInput.id = "todo-desc-input";
-descInput.placeholder = "More Details ...";
-descInput.rows = 3;
-modal.appendChild(makeField("Description", true , descInput));
+  // ----- Description field -----
+  const descInput = document.createElement("textarea");
+  descInput.id = "todo-desc-input";
+  descInput.placeholder = "More details…";
+  descInput.rows = 3;
+  modal.appendChild(makeField("Description", false, descInput));
 
-//code for two-column row: Due Date and Priority
-const twoCol = document.createElement("div");
-twoCol.classList.add("two-col");
+  // ----- Two-column row: Due Date + Priority -----
+  const twoCol = document.createElement("div");
+  twoCol.classList.add("two-col");
 
-const dateInput = document.createElement("input");
-dataInput.type = "date";
-dataInput.id = "todo-date-input";
-twoCol.appendChild(makeField("Due Date", false, dataInput));
+  const dateInput = document.createElement("input");
+  dateInput.type = "date";
+  dateInput.id = "todo-date-input";
+  twoCol.appendChild(makeField("Due Date", false, dateInput));
 
-const prioritySelect = document.createElement("select");
-prioritySelect.id = "todo-priority-input";
-[
-   { value: "low",    label: "🟢 Low"    },
-   { value: "medium", label: "🟡 Medium" },
-   { value: "high",   label: "🔴 High"   },
-].forEach(({value, label}) => {
+  const prioritySelect = document.createElement("select");
+  prioritySelect.id = "todo-priority-input";
+  // Build the <option> elements programmatically
+  [
+    { value: "low",    label: "🟢 Low"    },
+    { value: "medium", label: "🟡 Medium" },
+    { value: "high",   label: "🔴 High"   },
+  ].forEach(({ value, label }) => {
     const opt = document.createElement("option");
     opt.value = value;
     opt.textContent = label;
-    if (value === "medium") opt.selected = true; //Makes this the defaulted selection
+    if (value === "medium") opt.selected = true;  // default selection
     prioritySelect.appendChild(opt);
-});
-twoCol.appendChild(makeField("Priority", false, prioritySelect));
+  });
+  twoCol.appendChild(makeField("Priority", false, prioritySelect));
 
-modal.appendChild(twoCol);
+  modal.appendChild(twoCol);
 
-//Notes Field
-const notesInput = document.createElement("textarea");
-notesInput.id = "todo-notes-input";
-notesInput.placeholder = "Any Extra Notes ...";
-notesInput.rows = 2;
-modal.appendChild(makeField("Notes", false, notesInput));
+  // ----- Notes field -----
+  const notesInput = document.createElement("textarea");
+  notesInput.id = "todo-notes-input";
+  notesInput.placeholder = "Any extra notes…";
+  notesInput.rows = 2;
+  modal.appendChild(makeField("Notes", false, notesInput));
 
-//Hidden Field: Stores index when editing
-//-1 means adding something new while each other number means we are editing. 
+  // ----- Hidden field: stores the index when editing -----
+  // -1 means "we're adding new"; any other number means "we're editing"
+  const editIndexInput = document.createElement("input");
+  editIndexInput.type = "hidden";
+  editIndexInput.id = "edit-todo-index";
+  editIndexInput.value = "-1";
+  modal.appendChild(editIndexInput);
 
-const editIndexInput = document.createElement("input");
-editIndexInput.type = "hidden";
-editIndexInput.id = "edit-todo-index";
-editIndexInput.value = "-1";
-modal.appendChild(editIndexInput);
+  // ----- Form action buttons -----
+  const formActions = document.createElement("div");
+  formActions.classList.add("form-actions");
 
-//Form Action buttons
-const formActions = document.createElement("div");
-formActions.classList.add("form-actions");
+  const saveBtn = document.createElement("button");
+  saveBtn.id = "save-todo-btn";
+  saveBtn.textContent = "Save";
 
-const saveBtn = document.createElement("button");
-saveBtn.id = "save-todo-btn";
-saveBtn.textContent = "Save"; 
+  const closeBtn = document.createElement("button");
+  closeBtn.id = "close-modal-btn";
+  closeBtn.classList.add("btn-ghost");
+  closeBtn.textContent = "Cancel";
 
-const closeBtn = document.createElement("button");
-closeBtn.id = "close-modal-btn";
-closeBtn.classList.add("btn-ghost");
-closeBtn.textContent = "Cancel";
+  formActions.appendChild(saveBtn);
+  formActions.appendChild(closeBtn);
+  modal.appendChild(formActions);
 
-formActions.appendChild(saveBtn);
-formActions.appendChild(closeBtn);
-modal.appendChild(formActions);
+  // Attach the modal box to the overlay, overlay to <body>
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  return {
+    overlay, modal, modalTitle,
+    titleInput, descInput, dateInput,
+    prioritySelect, notesInput, editIndexInput,
+    saveBtn, closeBtn,
+  };
+}
