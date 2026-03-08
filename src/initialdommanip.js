@@ -180,3 +180,9 @@ titleInput.maxLength = 60;
 modal.appendChild(makeField("Title", true, titleInput));
 
 //Description Field
+const descInput = document.createElement("textarea");
+descInput.id = "todo-desc-input";
+descInput.placeholder = "More Details ...";
+descInput.rows = 3;
+modal.appendChild(makeField("Description", true , descInput));
+
