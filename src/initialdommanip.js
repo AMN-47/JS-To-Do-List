@@ -186,3 +186,29 @@ descInput.placeholder = "More Details ...";
 descInput.rows = 3;
 modal.appendChild(makeField("Description", true , descInput));
 
+//code for two-column row: Due Date and Priority
+const twoCol = document.createElement("div");
+twoCol.classList.add("two-col");
+
+const dateInput = document.createElement("input");
+dataInput.type = "date";
+dataInput.id = "todo-date-input";
+twoCol.appendChild(makeField("Due Date", false, dataInput));
+
+const prioritySelect = document.createElement("select");
+prioritySelect.id = "todo-priority-input";
+[
+   { value: "low",    label: "🟢 Low"    },
+   { value: "medium", label: "🟡 Medium" },
+   { value: "high",   label: "🔴 High"   },
+].forEach(({value, label}) => {
+    const opt = document.createElement("option");
+    opt.value = value;
+    opt.textContent = label;
+    if (value === "medium") opt.selected = true; //Makes this the defaulted selection
+    prioritySelect.appendChild(opt);
+});
+twoCol.appendChild(makeField("Priority", false, prioritySelect));
+
+modal.appendChild(twoCol);
+
