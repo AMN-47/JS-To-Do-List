@@ -254,4 +254,23 @@ function buildModal() {
     prioritySelect, notesInput, editIndexInput,
     saveBtn, closeBtn,
   };
+} 
+
+/*
+Injects global Style inserts Style tag with CSS Custom properties and base resets
+builk of css will be in style.css file
+*/
+
+function injectGlobalStyles() {
+    const style = document.createElement("style");
+    style.textContent = `
+        body {margin: 0;}
+        #content {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+    `;
+    document.head.appendChild(style);
 }
+
