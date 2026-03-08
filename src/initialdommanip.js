@@ -212,3 +212,9 @@ twoCol.appendChild(makeField("Priority", false, prioritySelect));
 
 modal.appendChild(twoCol);
 
+//Notes Field
+const notesInput = document.createElement("textarea");
+notesInput.id = "todo-notes-input";
+notesInput.placeholder = "Any Extra Notes ...";
+notesInput.rows = 2;
+modal.appendChild(makeField("Notes", false, notesInput));
