@@ -228,3 +228,19 @@ editIndexInput.id = "edit-todo-index";
 editIndexInput.value = "-1";
 modal.appendChild(editIndexInput);
 
+//Form Action buttons
+const formActions = document.createElement("div");
+formActions.classList.add("form-actions");
+
+const saveBtn = document.createElement("button");
+saveBtn.id = "save-todo-btn";
+saveBtn.textContent = "Save"; 
+
+const closeBtn = document.createElement("button");
+closeBtn.id = "close-modal-btn";
+closeBtn.classList.add("btn-ghost");
+closeBtn.textContent = "Cancel";
+
+formActions.appendChild(saveBtn);
+formActions.appendChild(closeBtn);
+modal.appendChild(formActions);
