@@ -169,4 +169,14 @@ function makeField(labelText, required, inputEl) {
 
     label.appendChild(inputEl);
     return label;
-}
+} 
+
+//Title Field 
+const titleInput = document.createElement("input");
+titleInput.type = "text";
+titleInput.id = "todo-title-input";
+titleInput.placeholder = "What needs doing?";
+titleInput.maxLength = 60;
+modal.appendChild(makeField("Title", true, titleInput));
+
+//Description Field
