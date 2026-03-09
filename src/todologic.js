@@ -120,7 +120,7 @@ function loadFromLocalStorage() {
 
 //SEED default data populates the demo project for first time users only if local storage is empty
 
-function seedDefualtData () {
+function seedDefaultData () {
     addProject("Personal");
     appState.activeIndex = 0;
 
@@ -161,6 +161,6 @@ export{
     saveToLocalStorage,
     loadFromLocalStorage,
 
-    seedDefualtData,
+    seedDefaultData,
     getTodayDateString,
 }
