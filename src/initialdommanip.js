@@ -37,7 +37,7 @@ import {
   getTodayDateString,
 } from "./todologic.js";
 
-
+import "./style.css"
 /* ================================================================
    SECTION A — BUILD THE PAGE SKELETON
    ================================================================
