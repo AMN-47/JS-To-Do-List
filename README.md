@@ -13,3 +13,6 @@ This project was aimed to allow me to practice object oriented principles furthe
 - Styling using Claude AI and CSS
 
 ## Technologies Used
+1) HTML, CSS
+2) JavaScript
+3) Node JS and NPM
